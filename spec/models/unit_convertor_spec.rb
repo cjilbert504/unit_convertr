@@ -18,6 +18,16 @@ describe UnitConvertor do
       expect(result.unit).to eq(:liter)
     end
     
+    it "can convert between quantities of the same unit" do
+        cups = Quantity.new(2, :cup)
+        convertor = UnitConvertor.new(cups, :cup)
+        
+        result = convertor.convert
+        
+        expect(result.amount).to be_within(0.001).of(2)
+        expect(result.unit).to eq(:cup)
+    end
+    
     it "raises an error if the two quantities are of differing dimensions" do 
       cups = Quantity.new(2, :cup)
       convertor = UnitConvertor.new(cups, :gram)
